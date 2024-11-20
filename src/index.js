@@ -1,7 +1,7 @@
 // https://github.com/kristianfreeman/lilredirector
 
-import redirector from 'lilredirector'
-import redirects from './redirects'
+import redirector from 'lilredirector';
+import redirects from './redirects';
 
 
 export default {
@@ -11,10 +11,12 @@ export default {
 		const { response, error } = await redirector(
 			event,
 			redirects, {
-			basicAuthentication: {
-				username: env.USERNAME,
-				password: env.PASSWORD,
-			},})
+				baseUrl: `/redirector`,
+				basicAuthentication: {
+					username: env.USERNAME,
+					password: env.PASSWORD
+				}
+			})
 		console.log(response);
 		if (response) return response
 
