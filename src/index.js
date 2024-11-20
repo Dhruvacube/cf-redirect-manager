@@ -3,30 +3,32 @@
 import redirector from 'lilredirector';
 import redirects from './redirects';
 
-
 export default {
 	async fetch(event, env, ctx) {
+		let url = new URL(event.url);
+		const redirect_manager = '/redirector';
+		if (url.pathname === '/') {
+			if (url.pathname.endsWith('/')) {
+				return Response.redirect(url.href.slice(0, -1) + redirect_manager, 301);
+			}
+			return Response.redirect(url.href + redirect_manager, 301);
+		} //Base url to redirection manager url
+
+
+		//redirection by the manager
 		event.request = event;
-		console.log(redirects);
 		const { response, error } = await redirector(
 			event,
 			redirects, {
-				baseUrl: `/redirector`,
+				baseUrl: redirect_manager,
 				basicAuthentication: {
 					username: env.USERNAME,
 					password: env.PASSWORD
 				}
 			})
-		console.log(response);
 		if (response) return response
 
 		// Optionally, return an error response
 		if (error) return error
-		// const base = "https://example.com";
-		// const statusCode = 301;
-		//
-		// const source = new URL(request.url);
-		// const destination = new URL(source.pathname, base);
-		// return Response.redirect(destination.toString(), statusCode);
 	},
 };
