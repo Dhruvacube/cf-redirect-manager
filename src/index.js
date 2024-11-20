@@ -1,15 +1,30 @@
-/**
- * Welcome to Cloudflare Workers! This is your first worker.
- *
- * - Run `npm run dev` in your terminal to start a development server
- * - Open a browser tab at http://localhost:8787/ to see your worker in action
- * - Run `npm run deploy` to publish your worker
- *
- * Learn more at https://developers.cloudflare.com/workers/
- */
+// https://github.com/kristianfreeman/lilredirector
+
+import redirector from 'lilredirector'
+import redirects from './redirects'
+
 
 export default {
-	async fetch(request, env, ctx) {
-		return new Response('Hello World!');
+	async fetch(event, env, ctx) {
+		event.request = event;
+		console.log(redirects);
+		const { response, error } = await redirector(
+			event,
+			redirects, {
+			basicAuthentication: {
+				username: env.USERNAME,
+				password: env.PASSWORD,
+			},})
+		console.log(response);
+		if (response) return response
+
+		// Optionally, return an error response
+		if (error) return error
+		// const base = "https://example.com";
+		// const statusCode = 301;
+		//
+		// const source = new URL(request.url);
+		// const destination = new URL(source.pathname, base);
+		// return Response.redirect(destination.toString(), statusCode);
 	},
 };
