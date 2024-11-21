@@ -81,7 +81,7 @@ enabled = true
 [[kv_namespaces]]
 binding = "DATASTORE"
 id = "beffe486377d4524ac9253440ac50d28"
-
+preview_id = "beffe486377d4524ac9253440ac50d28"
 
 # Bind an mTLS certificate. Use to present a client certificate when communicating with another service.
 # Docs: https://developers.cloudflare.com/workers/wrangler/configuration/#mtls-certificates
