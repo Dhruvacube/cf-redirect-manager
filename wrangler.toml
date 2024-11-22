@@ -5,7 +5,8 @@ compatibility_date = "2024-11-12"
 compatibility_flags = ["nodejs_compat"]
 
 routes = [
-	{ pattern = "redirect.dhruvashaw.in", custom_domain = true }
+	{ pattern = "redirect.dhruvashaw.in", custom_domain = true },
+	{ pattern = "short.dhruvashaw.in", custom_domain = true }
 ]
 
 # Workers Logs
